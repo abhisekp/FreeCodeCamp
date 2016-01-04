@@ -171,6 +171,95 @@
       ],
       "type": "waypoint",
       "challengeType": 1
+    },
+    {
+      "id": "568a20b7faa771ba4eba8056",
+      "title": "Treasure Hunt",
+      "description": [
+        "In the <strong>Treasure Hunt</strong> game, you need to find the hidden <strong>number</strong> (<em>the treasure</em>) in a large block of <strong>text</strong> (<em>the haystack</em>). The number can be hidden anywhere in the text.",
+        "Find the <em>location</em> of the number and the <em>number</em> itself along with the <strong>text with the hidden number removed</strong>. And return it from the <strong><code>findHiddenTreasure(haystack, count)</code></strong> function as an object i.e.",
+        "<blockquote>{<br>  index: 10,<br>  treasure: 465648,<br>  text: 'Lorem ipsum <strong><em>HT</em></strong> dolor sit amet, consectetur adipisicing elit.'<br>}</blockquote>",
+        "Note that the <strong><code>text</code></strong> property doesn't contain the hidden number after the text <strong><code>HT</code></strong> (<em>see the first instruction</em>).",
+        "",
+        "<h4>Instructions</h4>",
+        "Hidden numbers are followed by the text <code>HT</code> or <code>HN</code> or <code>HTN</code> (lowercase or uppercase).",
+        "<strong><code>{String} haystack</code></strong> is the block of text where the number is hidden.",
+        "There are multiple hidden numbers in text in various places. <strong><code>{Number} count</code></strong> specifies which one to find i.e. the 1st, 2nd, 3rd, etc, number (natural number based).",
+        "<strong><code>{Number} index</code></strong> is the position of the required hidden number in the text (0-based indexing)",
+        "<strong><code>{Number} treasure</code></strong> is the required hidden number itself",
+        "The number can be in various formats such as<ol><li><code>456-456-65</code> (hyphen separated)</li><li><code>954.658.7476</code> (dot separated)</li><li><code>456-456.65-9.61-46</code> (hyphen/dot separated)</li><li><code>-456659.6146</code> (negative number)</li><li><code>+456659.6146</code> (positive number)</li><li>or a mix of the above</li></ol>",
+        "And <strong><code>{String} text</code></strong> is the given text (<em>the haystack</em>) with the <strong>hidden number removed</strong> (<em>the treasure</em>).",
+        "If the number is not present, then the <code>index</code> property should contain <code>-1</code>, the <code>text</code> property should contain the <em>original text</em> passed and the <code>treasure</code> property should contain <code>undefined</code>."
+      ],
+      "releasedOn": "February 2, 2015",
+      "head": [
+        "var logOutput = \"\";",
+        "var oldLog = console.log.bind(console);",
+        "var isCaptured = false;",
+        "",
+        "function capture() {",
+        "  isCaptured = true;",
+        "  console.log = function (msg) {",
+        "    // arg is an object",
+        "    if(typeof msg === 'object') {",
+        "      logOutput += '\\n{';",
+        "      var keys = Object.keys(msg);",
+        "      keys.forEach(function (key, ind) {",
+        "        logOutput += '\\n  ' + key + ': ' + msg[key];",
+        "",
+        "        // not last key",
+        "        if(ind !== keys.length-1) {",
+        "          logOutput += ','",
+        "        }",
+        "      });",
+        "      logOutput += '\\n}\\n';",
+        "    } else {",
+        "      logOutput += msg + '\\n';",
+        "    }",
+        "",
+        "    oldLog.apply(console, arguments);",
+        "    return msg;",
+        "  };",
+        "}",
+        "",
+        "function uncapture() {",
+        "  console.log = oldLog;",
+        "}",
+        "",
+        "typeof findHiddenTreasure === 'function' && capture();"
+      ],
+      "challengeSeed": [
+        "var haystack = 'LHn456-456.65-9.61-46\\n4849ore\\NHt456-456.65-9.61-46 ipsumHn456-456.65-9.61-46 doHNlor ht-456659.6146sit amet, con\\hT-6564.5498sectetur adipisicing elit. Qu\\nam vero quo eaque, id quisquam fuga reprehe\\nderit, hT05507 veri\\\\atis distinhn456-456-65ctio deserunt? moHn484+456-65llitia nesciunt, distinctio HTn-954.658.7476veritatis sihTnt in!';",
+        "",
+        "function findHiddenTreasure(haystack, count) {",
+        "  var index = -1, treasure, removedSecret = haystack;",
+        "  // write code after this line",
+        "  ",
+        "  ",
+        "  ",
+        "  // do not modify below this line",
+        "  return {",
+        "    index: index,",
+        "    treasure: treasure,",
+        "    text: removedSecret",
+        "  };",
+        "}",
+        "",
+        "// use as many console.log and see the output in display",
+        "console.log(findHiddenTreasure(haystack, 3));"
+      ],
+      "tail": [
+        "typeof findHiddenTreasure === 'function' && uncapture();",
+        "(function() { return logOutput || \"console.log never called\"; })();"
+      ],
+      "solutions": [
+        "function findHiddenTreasure(haystack, count) {\n  var index = -1, treasure, removedSecret = haystack;\n  // write code after this line\n  \n  var regex = /h(?:[tn]|tn)([+-]?\\d+(?:[.-]?\\d*)+)/gi;\n  var secretCount = 0;\n  \n  var matches;\n  while(secretCount < count && (matches = regex.exec(haystack)) !== null) {\n    if(++secretCount === count) {\n      treasure = +matches[1].replace(/[+.-]/g, '');\n      index = matches.index + (matches[0].length - matches[1].length);\n      removedSecret = haystack.substr(0, index) + haystack.substr(regex.lastIndex, haystack.length);\n    }\n  }\n  \n  // do not modify below this line\n  return {\n    index: index,\n    treasure: treasure,\n    text: removedSecret\n  };\n}"
+      ],
+      "tests": [
+        "assert.deepEqual(findHiddenTreasure('LHn456-456.65-9.61-46\\n4849ore\\NHt456-456.65-9.61-46 ipsumHn456-456.65-9.61-46 doHNlor ht-456659.6146sit amet, con\\hT-6564.5498sectetur adipisicing elit. Qu\\nam vero quo eaque, id quisquam fuga reprehe\\nderit, hT05507 veri\\\\atis distinhn456-456-65ctio deserunt? moHn484+456-65llitia nesciunt, distinctio HTn-954.658.7476veritatis sihTnt in!', 3), {index: 58, text: 'LHn456-456.65-9.61-46\\n4849ore\\NHt456-456.65-9.61-46 ipsumHn doHNlor ht-456659.6146sit amet, con\\hT-6564.5498sectetur adipisicing elit. Qu\\nam vero quo eaque, id quisquam fuga reprehe\\nderit, hT05507 veri\\\\atis distinhn456-456-65ctio deserunt? moHn484+456-65llitia nesciunt, distinctio HTn-954.658.7476veritatis sihTnt in!', treasure: 4564566596146}, \"message: <code>findHiddenTreasure(haystack, 3)</code> should return <strong><code>{index: 58, text: 'LHn456-456.65-9.61-46\\n4849ore\\NHt456-456.65-9.61-46 ipsumHn doHNlor ht-456659.6146sit amet, con\\hT-6564.5498sectetur adipisicing elit. Qu\\nam vero quo eaque, id quisquam fuga reprehe\\nderit, hT05507 veri\\\\atis distinhn456-456-65ctio deserunt? moHn484+456-65llitia nesciunt, distinctio HTn-954.658.7476veritatis sihTnt in!', treasure: 4564566596146}</code></strong>\");"
+      ],
+      "type": "bonfire",
+      "challengeType": 5
     }
   ]
 }
