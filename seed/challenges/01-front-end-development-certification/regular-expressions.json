@@ -52,7 +52,7 @@
         "assert(code.match(/\\/and\\/gi/), 'message: Use <code>regular expressions</code> to find the word <code>and</code> in <code>testString</code>.');"
       ],
       "type": "waypoint",
-      "challengeType": "1"
+      "challengeType": 1
     },
     {
       "id": "cf1111c1c12feddfaeb7bdef",
@@ -92,7 +92,7 @@
         "assert(code.match(/\\/\\\\d\\+\\//g), 'message: Use the <code>/\\d+/g</code> regular expression to find the numbers in <code>testString</code>.');"
       ],
       "type": "waypoint",
-      "challengeType": "1"
+      "challengeType": 1
     },
     {
       "id": "cf1111c1c12feddfaeb8bdef",
@@ -132,7 +132,7 @@
         "assert(code.match(/\\/\\\\s\\+\\//g), 'message: Use the <code>/\\s+/g</code> regular expression to find the spaces in <code>testString</code>.');"
       ],
       "type": "waypoint",
-      "challengeType": "1"
+      "challengeType": 1
     },
     {
       "id": "cf1111c1c13feddfaeb3bdef",
@@ -170,7 +170,7 @@
         "assert(code.match(/\\/\\\\S\\/g/g), 'message: Use the <code>/\\S/g</code> regular expression to find non-space characters in <code>testString</code>.');"
       ],
       "type": "waypoint",
-      "challengeType": "1"
+      "challengeType": 1
     }
   ]
 }
