@@ -205,11 +205,15 @@
         "      logOutput += '\\n{';",
         "      var keys = Object.keys(msg);",
         "      keys.forEach(function (key, ind) {",
-        "        logOutput += '\\n  ' + key + ': ' + msg[key];",
+        "        var msgStr = msg[key];",
+        "        if(typeof msgStr === 'string') {",
+        "          msgStr = '\"' + msgStr + '\"';",
+        "        }",
+        "        logOutput += '\\n  ' + key + ': ' + msgStr;",
         "",
         "        // not last key",
         "        if(ind !== keys.length-1) {",
-        "          logOutput += ','",
+        "          logOutput += ',';",
         "        }",
         "      });",
         "      logOutput += '\\n}\\n';",
@@ -223,13 +227,18 @@
         "}",
         "",
         "function uncapture() {",
-        "  console.log = oldLog;",
+        "  if(isCaptured) {",
+        "    console.log = oldLog;",
+        "    isCaptured = false;",
+        "  }",
         "}",
         "",
         "typeof findHiddenTreasure === 'function' && capture();"
       ],
       "challengeSeed": [
         "var haystack = 'LHn456-456.65-9.61-46\\n4849ore\\NHt456-456.65-9.61-46 ipsumHn456-456.65-9.61-46 doHNlor ht-456659.6146sit amet, con\\hT-6564.5498sectetur adipisicing elit. Qu\\nam vero quo eaque, id quisquam fuga reprehe\\nderit, hT05507 veri\\\\atis distinhn456-456-65ctio deserunt? moHn484+456-65llitia nesciunt, distinctio HTn-954.658.7476veritatis sihTnt in!';",
+        "// log haystack for testing in http://regex101.com#pcre",
+        "console.log('Haystack:-\\n\"' + haystack + '\"');",
         "",
         "function findHiddenTreasure(haystack, count) {",
         "  var index = -1, treasure, removedSecret = haystack;",
@@ -249,7 +258,7 @@
         "console.log(findHiddenTreasure(haystack, 3));"
       ],
       "tail": [
-        "typeof findHiddenTreasure === 'function' && uncapture();",
+        "uncapture();",
         "(function() { return logOutput || \"console.log never called\"; })();"
       ],
       "solutions": [
