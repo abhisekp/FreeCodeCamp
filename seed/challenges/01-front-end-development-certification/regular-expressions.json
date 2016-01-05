@@ -233,7 +233,8 @@
         "  }",
         "}",
         "",
-        "typeof findHiddenTreasure === 'function' && capture();"
+        "capture();",
+        "try {"
       ],
       "challengeSeed": [
         "var haystack = 'LHn456-456.65-9.61-46\\n4849ore\\NHt456-456.65-9.61-46 ipsumHn456-456.65-9.61-46 doHNlor ht-456659.6146sit amet, con\\hT-6564.5498sectetur adipisicing elit. Qu\\nam vero quo eaque, id quisquam fuga reprehe\\nderit, hT05507 veri\\\\atis distinhn456-456-65ctio deserunt? moHn484+456-65llitia nesciunt, distinctio HTn-954.658.7476veritatis sihTnt in!';",
@@ -258,6 +259,9 @@
         "console.log(findHiddenTreasure(haystack, 3));"
       ],
       "tail": [
+        "} catch(ex) {",
+        "  console.log('\\n' + ex.message);",
+        "}",
         "uncapture();",
         "(function() { return logOutput || \"console.log never called\"; })();"
       ],
