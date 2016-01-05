@@ -182,7 +182,7 @@
         "Note that the <strong><code>text</code></strong> property doesn't contain the hidden number after the text <strong><code>HT</code></strong> (<em>see the first instruction</em>).",
         "",
         "<h4>Instructions</h4>",
-        "Hidden numbers are followed by the text <code>HT</code> or <code>HN</code> or <code>HTN</code> (lowercase or uppercase).",
+        "Hidden numbers are preceded by the text <code>HT</code> or <code>HN</code> or <code>HTN</code> (lowercase/uppercase/mixedcase).",
         "<strong><code>{String} haystack</code></strong> is the block of text where the number is hidden.",
         "There are multiple hidden numbers in text in various places. <strong><code>{Number} count</code></strong> specifies which one to find i.e. the 1st, 2nd, 3rd, etc, number (natural number based).",
         "<strong><code>{Number} index</code></strong> is the position of the required hidden number in the text (0-based indexing)",
